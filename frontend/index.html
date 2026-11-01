@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sheleri — Adopt · Shop · Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#home">🐾 <b>Sheltri</b></a>
+  <nav><a href="#pets">Pets</a><a href="#shelters">Shelters</a><a href="#shop">Shop</a><a href="#boarding">Boarding</a><a href="#report">Rescue AI</a></nav>
+  <div class="acts"><button class="ghost" id="admBtn" data-a="dash" hidden>⚙️ Admin</button><button class="ghost" data-a="cart">🛒 <span id="cartN">0</span></button><button class="gold" id="authBtn" data-a="auth">Sign in</button></div>
+</header>
+
+<section class="hero" id="home">
+  <i class="fl" style="--x:6%;--y:18%">🐶</i><i class="fl" style="--x:48%;--y:8%;--d:1s">🐱</i><i class="fl" style="--x:92%;--y:72%;--d:2s">🐰</i><i class="fl" style="--x:28%;--y:84%;--d:3s">🦜</i><i class="fl" style="--x:62%;--y:90%;--d:1.5s">🐹</i>
+  <div class="hero-in">
+    <div>
+      <span class="eyebrow">✦ Adopt · Shop · Board · Rescue</span>
+      <h1>Every paw deserves a <em>palace</em>.</h1>
+      <p>Meet loving pets from trusted shelters, shop premium essentials, and get AI-assisted help for animals in need.</p>
+      <div class="row"><a class="btn gold" href="#pets">Meet the pets 🐕</a><a class="btn out" href="#report">Report a stray 🚑</a></div>
+      <div class="stats"><div><b id="sP">0</b><small>Pets</small></div><div><b id="sA">0</b><small>Awaiting homes</small></div><div><b id="sS">0</b><small>Shelters</small></div></div>
+    </div>
+    <div id="feat" class="feat"></div>
+  </div>
+</section>
+
+<section id="pets" class="sec">
+  <div class="hd"><span>🐾 Adopt</span><h2>Find your best friend</h2></div>
+  <div class="bar"><div id="chips" class="chips"></div><input id="ps" placeholder="🔎 Search by name…"><label class="sw"><input type="checkbox" id="av"> Available only</label></div>
+  <div id="petGrid" class="grid"></div>
+  <div id="pager" class="pager"></div>
+</section>
+
+<section id="shelters" class="sec alt">
+  <div class="hd"><span>🏡 Shelters</span><h2>Homes that care</h2></div>
+  <div id="shelterGrid" class="grid"></div>
+</section>
+
+<section id="shop" class="sec">
+  <div class="hd"><span>🦴 Shop</span><h2>Premium essentials</h2></div>
+  <div class="bar"><input id="q" placeholder="🔎 Search food, toys, beds…"></div>
+  <div id="shopGrid" class="grid"></div>
+</section>
+
+<section id="boarding" class="sec alt">
+  <div class="hd"><span>🏨 Boarding</span><h2>A cozy stay while you're away</h2></div>
+  <div class="split">
+    <div class="panel dark"><div class="big-e">🐕‍🦺</div><h3>Five-star care</h3><p>Daily walks, premium meals and lots of cuddles. From <b>$25</b> per night — a caretaker confirms every request.</p></div>
+    <form id="bForm" class="form panel">
+      <input name="pet_name" placeholder="Pet name 🐾" required>
+      <select name="pet_type"><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Hamster</option><option>Other</option></select>
+      <select name="shelter_id" required></select>
+      <div class="two"><input type="date" name="start_date" required><input type="date" name="end_date" required></div>
+      <textarea name="notes" rows="3" placeholder="Allergies, favourite toy, routine…"></textarea>
+      <button class="gold full">Request a stay 🏨</button>
+    </form>
+  </div>
+</section>
+
+<section id="report" class="sec">
+  <div class="hd"><span>🚑 Rescue AI</span><h2>Spotted an animal in need?</h2></div>
+  <div class="split">
+    <form id="rForm" class="form panel">
+      <select name="shelter_id" required></select>
+      <input name="location" placeholder="📍 Where did you see it?" required>
+      <textarea name="description" rows="3" placeholder="Describe what you saw…" required></textarea>
+      <input type="file" name="image" accept="image/*" required>
+      <button class="gold full">Send report &amp; analyse 🤖</button>
+    </form>
+    <div id="rOut" class="panel dark"><div class="big-e">🩺</div><h3>Instant AI assessment</h3><p>Upload a photo and our model identifies the animal, breed, visible conditions and how urgent it is — then alerts the shelter.</p></div>
+  </div>
+</section>
+
+<footer class="foot">🐾 Sheltri — made with love for every tail that wags.</footer>
+
+<div id="adm" class="adm"></div>
+<div id="modal" class="modal"><div class="box"><button class="x" data-a="close">✕</button><div id="mb"></div></div></div>
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>

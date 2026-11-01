@@ -1,0 +1,672 @@
+// POSTMAN TEST COLLECTION FOR PET ADOPTION API
+// Base URL: http://localhost:8000/api
+
+/**
+ * ============================================================================
+ * AUTHENTICATION ROUTES
+ * ============================================================================
+ */
+
+// 1. SIGNUP
+POST /signup
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+RESPONSE (201):
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "email_verified_at": null,
+  "pet_id": null,
+  "adoptions": 0,
+  "donations": 0,
+  "created_at": "2026-03-21T10:00:00.000000Z",
+  "updated_at": "2026-03-21T10:00:00.000000Z"
+}
+
+---
+
+// 2. LOGIN
+POST /login
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+RESPONSE (200):
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
+
+---
+
+/**
+ * ============================================================================
+ * SHELTER ROUTES
+ * ============================================================================
+ */
+
+// 3. GET ALL SHELTERS
+GET /shelters
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+[
+  {
+    "id": 1,
+    "name": "Happy Paws Shelter",
+    "location": "New York, NY",
+    "created_at": "2026-03-21T10:00:00.000000Z",
+    "updated_at": "2026-03-21T10:00:00.000000Z"
+  },
+  {
+    "id": 2,
+    "name": "Safe Haven",
+    "location": "Los Angeles, CA",
+    "created_at": "2026-03-21T10:05:00.000000Z",
+    "updated_at": "2026-03-21T10:05:00.000000Z"
+  }
+]
+
+---
+
+// 4. CREATE SHELTER
+POST /shelters
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "Friendly Paws",
+  "location": "Chicago, IL"
+}
+
+RESPONSE (201):
+{
+  "id": 3,
+  "name": "Friendly Paws",
+  "location": "Chicago, IL",
+  "created_at": "2026-03-21T10:10:00.000000Z",
+  "updated_at": "2026-03-21T10:10:00.000000Z"
+}
+
+---
+
+// 5. GET SPECIFIC SHELTER
+GET /shelters/1
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "Happy Paws Shelter",
+  "location": "New York, NY",
+  "created_at": "2026-03-21T10:00:00.000000Z",
+  "updated_at": "2026-03-21T10:00:00.000000Z"
+}
+
+---
+
+// 6. UPDATE SHELTER
+PUT /shelters/1
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "Happy Paws Shelter Updated",
+  "location": "New York, NY 10001"
+}
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "Happy Paws Shelter Updated",
+  "location": "New York, NY 10001",
+  "created_at": "2026-03-21T10:00:00.000000Z",
+  "updated_at": "2026-03-21T10:15:00.000000Z"
+}
+
+---
+
+// 7. DELETE SHELTER
+DELETE /shelters/3
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "message": "Shelter deleted successfully"
+}
+
+---
+
+/**
+ * ============================================================================
+ * PET ROUTES
+ * ============================================================================
+ */
+
+// 8. GET ALL PETS
+GET /pets
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+[
+  {
+    "id": 1,
+    "name": "Buddy",
+    "type": "Dog",
+    "photo": "1711000400.jpg",
+    "shelter_id": 1,
+    "user_id": null,
+    "created_at": "2026-03-21T10:20:00.000000Z",
+    "updated_at": "2026-03-21T10:20:00.000000Z"
+  },
+  {
+    "id": 2,
+    "name": "Whiskers",
+    "type": "Cat",
+    "photo": "1711000500.jpg",
+    "shelter_id": 2,
+    "user_id": 1,
+    "created_at": "2026-03-21T10:25:00.000000Z",
+    "updated_at": "2026-03-21T10:25:00.000000Z"
+  }
+]
+
+---
+
+// 9. CREATE PET
+POST /pets
+Content-Type: multipart/form-data
+
+REQUEST BODY:
+{
+  "name": "Max",
+  "type": "Dog",
+  "shelter_id": 1,
+  "photo": [binary image file]
+}
+
+RESPONSE (201):
+{
+  "id": 3,
+  "name": "Max",
+  "type": "Dog",
+  "photo": "1711000600.jpg",
+  "shelter_id": 1,
+  "user_id": null,
+  "created_at": "2026-03-21T10:30:00.000000Z",
+  "updated_at": "2026-03-21T10:30:00.000000Z"
+}
+
+---
+
+// 10. GET SPECIFIC PET
+GET /pets/1
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "Buddy",
+  "type": "Dog",
+  "photo": "1711000400.jpg",
+  "shelter_id": 1,
+  "user_id": null,
+  "created_at": "2026-03-21T10:20:00.000000Z",
+  "updated_at": "2026-03-21T10:20:00.000000Z"
+}
+
+---
+
+// 11. UPDATE PET
+PUT /pets/1
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "Buddy Updated",
+  "type": "Dog",
+  "shelter_id": 2
+}
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "Buddy Updated",
+  "type": "Dog",
+  "photo": "1711000400.jpg",
+  "shelter_id": 2,
+  "user_id": null,
+  "created_at": "2026-03-21T10:20:00.000000Z",
+  "updated_at": "2026-03-21T10:35:00.000000Z"
+}
+
+---
+
+// 12. DELETE PET
+DELETE /pets/3
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "message": "Pet deleted successfully"
+}
+
+---
+
+/**
+ * ============================================================================
+ * USER ROUTES
+ * ============================================================================
+ */
+
+// 13. GET ALL USERS
+GET /users
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "email_verified_at": null,
+    "pet_id": 2,
+    "adoptions": 1,
+    "donations": 50.00,
+    "created_at": "2026-03-21T10:00:00.000000Z",
+    "updated_at": "2026-03-21T10:40:00.000000Z"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "email_verified_at": null,
+    "pet_id": null,
+    "adoptions": 0,
+    "donations": 0,
+    "created_at": "2026-03-21T10:45:00.000000Z",
+    "updated_at": "2026-03-21T10:45:00.000000Z"
+  }
+]
+
+---
+
+// 14. CREATE USER
+POST /users
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "Jane Smith",
+  "email": "jane@example.com",
+  "password": "password456"
+}
+
+RESPONSE (201):
+{
+  "id": 2,
+  "name": "Jane Smith",
+  "email": "jane@example.com",
+  "email_verified_at": null,
+  "pet_id": null,
+  "adoptions": 0,
+  "donations": 0,
+  "created_at": "2026-03-21T10:45:00.000000Z",
+  "updated_at": "2026-03-21T10:45:00.000000Z"
+}
+
+---
+
+// 15. GET SPECIFIC USER
+GET /users/1
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "email_verified_at": null,
+  "pet_id": 2,
+  "adoptions": 1,
+  "donations": 50.00,
+  "created_at": "2026-03-21T10:00:00.000000Z",
+  "updated_at": "2026-03-21T10:40:00.000000Z"
+}
+
+---
+
+// 16. UPDATE USER
+PUT /users/1
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "John Doe Updated",
+  "email": "john.updated@example.com"
+}
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "John Doe Updated",
+  "email": "john.updated@example.com",
+  "email_verified_at": null,
+  "pet_id": 2,
+  "adoptions": 1,
+  "donations": 50.00,
+  "created_at": "2026-03-21T10:00:00.000000Z",
+  "updated_at": "2026-03-21T10:50:00.000000Z"
+}
+
+---
+
+// 17. DELETE USER
+DELETE /users/2
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "message": "User deleted successfully"
+}
+
+---
+
+// 18. RECORD PET ADOPTION
+POST /users/1/adoption
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "pet_id": 2
+}
+
+RESPONSE (200):
+{
+  "message": "Pet adopted successfully",
+  "pet": {
+    "id": 2,
+    "name": "Whiskers",
+    "type": "Cat",
+    "photo": "1711000500.jpg",
+    "shelter_id": 2,
+    "user_id": 1,
+    "created_at": "2026-03-21T10:25:00.000000Z",
+    "updated_at": "2026-03-21T10:55:00.000000Z"
+  },
+  "total_adoptions": 1
+}
+
+---
+
+// 19. RECORD DONATION
+POST /users/1/donation
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "amount": 50.00
+}
+
+RESPONSE (200):
+{
+  "message": "Donation recorded",
+  "total_donations": 50.00
+}
+
+---
+
+/**
+ * ============================================================================
+ * EMPLOYEE ROUTES
+ * ============================================================================
+ */
+
+// 20. GET ALL EMPLOYEES
+GET /employees
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "email": "alice@shelter.com",
+    "phone": "555-0001",
+    "position": "Manager",
+    "shelter_id": 1,
+    "shelter": {
+      "id": 1,
+      "name": "Happy Paws Shelter",
+      "location": "New York, NY"
+    },
+    "created_at": "2026-03-21T11:00:00.000000Z",
+    "updated_at": "2026-03-21T11:00:00.000000Z"
+  },
+  {
+    "id": 2,
+    "name": "Bob Wilson",
+    "email": "bob@shelter.com",
+    "phone": "555-0002",
+    "position": "Veterinarian",
+    "shelter_id": 2,
+    "shelter": {
+      "id": 2,
+      "name": "Safe Haven",
+      "location": "Los Angeles, CA"
+    },
+    "created_at": "2026-03-21T11:05:00.000000Z",
+    "updated_at": "2026-03-21T11:05:00.000000Z"
+  }
+]
+
+---
+
+// 21. CREATE EMPLOYEE
+POST /employees
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "Carol Davis",
+  "email": "carol@shelter.com",
+  "phone": "555-0003",
+  "position": "Caretaker",
+  "shelter_id": 1
+}
+
+RESPONSE (201):
+{
+  "id": 3,
+  "name": "Carol Davis",
+  "email": "carol@shelter.com",
+  "phone": "555-0003",
+  "position": "Caretaker",
+  "shelter_id": 1,
+  "shelter": {
+    "id": 1,
+    "name": "Happy Paws Shelter",
+    "location": "New York, NY"
+  },
+  "created_at": "2026-03-21T11:10:00.000000Z",
+  "updated_at": "2026-03-21T11:10:00.000000Z"
+}
+
+---
+
+// 22. GET SPECIFIC EMPLOYEE
+GET /employees/1
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "Alice Johnson",
+  "email": "alice@shelter.com",
+  "phone": "555-0001",
+  "position": "Manager",
+  "shelter_id": 1,
+  "shelter": {
+    "id": 1,
+    "name": "Happy Paws Shelter",
+    "location": "New York, NY"
+  },
+  "created_at": "2026-03-21T11:00:00.000000Z",
+  "updated_at": "2026-03-21T11:00:00.000000Z"
+}
+
+---
+
+// 23. UPDATE EMPLOYEE
+PUT /employees/1
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "Alice Johnson",
+  "email": "alice@shelter.com",
+  "phone": "555-1234",
+  "position": "Senior Manager",
+  "shelter_id": 2
+}
+
+RESPONSE (200):
+{
+  "id": 1,
+  "name": "Alice Johnson",
+  "email": "alice@shelter.com",
+  "phone": "555-1234",
+  "position": "Senior Manager",
+  "shelter_id": 2,
+  "shelter": {
+    "id": 2,
+    "name": "Safe Haven",
+    "location": "Los Angeles, CA"
+  },
+  "created_at": "2026-03-21T11:00:00.000000Z",
+  "updated_at": "2026-03-21T11:15:00.000000Z"
+}
+
+---
+
+// 24. DELETE EMPLOYEE
+DELETE /employees/3
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+{
+  "message": "Employee deleted successfully"
+}
+
+---
+
+// 25. GET EMPLOYEES BY SHELTER
+GET /shelters/1/employees
+Content-Type: application/json
+
+REQUEST BODY: (empty)
+
+RESPONSE (200):
+[
+  {
+    "id": 3,
+    "name": "Carol Davis",
+    "email": "carol@shelter.com",
+    "phone": "555-0003",
+    "position": "Caretaker",
+    "shelter_id": 1,
+    "created_at": "2026-03-21T11:10:00.000000Z",
+    "updated_at": "2026-03-21T11:10:00.000000Z"
+  }
+]
+
+---
+
+/**
+ * ============================================================================
+ * COMMON ERROR RESPONSES
+ * ============================================================================
+ */
+
+// 404 NOT FOUND
+GET /users/999
+Content-Type: application/json
+
+RESPONSE (404):
+{
+  "message": "No query results found for model [App\\Models\\User] 999"
+}
+
+---
+
+// 422 VALIDATION ERROR
+POST /shelters
+Content-Type: application/json
+
+REQUEST BODY:
+{
+  "name": "Test Shelter"
+  // Missing required location field
+}
+
+RESPONSE (422):
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "location": [
+      "The location field is required."
+    ]
+  }
+}
+
+---
+
+// 500 SERVER ERROR (example with foreign key constraint)
+DELETE /shelters/1
+Content-Type: application/json
+// Attempting to delete shelter with active pets
+
+RESPONSE (500):
+{
+  "message": "SQLSTATE[23000]: Integrity constraint violation"
+}
